@@ -11,5 +11,13 @@
     <!-- Button texts -->
     <string name="button_add_edittext">ADD SHIFT</string>
     <string name="button_calculate">CALCULATE</string>
+    <string name="button_clear">CLEAR</string>
+    
+    <!-- Alert strings -->
+    <string name="alert_num_shift">Maximum number of allowed previous shifts exceeded.</string>
+    <string name="alert_clear_title">Clear</string>
+    <string name="alert_clear_message">This will clear the entire screen. Continue?</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_ok">OK</string>
 
 </resources>

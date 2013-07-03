@@ -1,20 +1,43 @@
 package com.example.bbqtipcalculator;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+/**
+ *  
+ *
+ * @author Ji jiwpark90
+ */
 public class MainActivity extends Activity {
-	
+
 	public static final int US_DOLLAR_IN_CENTS = 100;
+
+	// maximum number of shifts that can exist before a shift
+	private static final int MAX_PREV_SHIFTS = 5;
 
 	// references to the view contained in the layout
 	private LinearLayout mPrevGratLayout;
 	private LinearLayout mPrevCardTipLayout;
+
+	// references to the current total amounts
+	private EditText mCashTip;
+	private EditText mCardTipTotal;
+	private EditText mGratTotal;
+
+	// collection of EditTexts for previous shifts containing previous
+	// shifts' card tip and gratuity information
+	private ArrayList<EditText> mPrevGrat = new ArrayList<EditText>();
+	private ArrayList<EditText> mPrevCardTip = new ArrayList<EditText>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +47,18 @@ public class MainActivity extends Activity {
 		// save the nested layouts of the dynamic portions of the main layout
 		mPrevGratLayout = (LinearLayout) findViewById(R.id.layout_prev_grat);
 		mPrevCardTipLayout = (LinearLayout) findViewById(R.id.layout_prev_card_tip);
-		
+
+		// save references to total amounts for the clear() method
+		mCashTip = (EditText) findViewById(R.id.edittext_cash_tip);
+		mCardTipTotal = (EditText) findViewById(R.id.edittext_card_tip_total);
+		mGratTotal = (EditText) findViewById(R.id.edittext_gratuity_total);
+
 		// set currency filters to existing EditTexts
 		((EditText) findViewById(R.id.edittext_cash_tip)).setFilters(
 				new InputFilter[] { new CurrencyInputFilter() });
-		((EditText) findViewById(R.id.edittext_gratuity_total)).setFilters(
-				new InputFilter[] { new CurrencyInputFilter() });
 		((EditText) findViewById(R.id.edittext_card_tip_total)).setFilters(
+				new InputFilter[] { new CurrencyInputFilter() });
+		((EditText) findViewById(R.id.edittext_gratuity_total)).setFilters(
 				new InputFilter[] { new CurrencyInputFilter() });
 	}
 
@@ -47,9 +75,17 @@ public class MainActivity extends Activity {
 	 * @param view TODO
 	 */
 	public void addCardTipSlot(View view) {
-		EditText newCardTipSlot = (EditText) getLayoutInflater().
-				inflate(R.layout.edit_text_template, mPrevCardTipLayout, false);
-		mPrevCardTipLayout.addView(newCardTipSlot);
+		if (mPrevCardTip.size() < MAX_PREV_SHIFTS) {
+			EditText newCardTipSlot = (EditText) getLayoutInflater().
+					inflate(R.layout.edit_text_template, mPrevCardTipLayout, false);
+			newCardTipSlot.setFilters(new InputFilter[] { new CurrencyInputFilter() });
+			newCardTipSlot.setId(mPrevCardTip.size());
+			mPrevCardTip.add(newCardTipSlot);
+			mPrevCardTipLayout.addView(newCardTipSlot);
+			Toast.makeText(MainActivity.this, Integer.toString(newCardTipSlot.getId()), Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(MainActivity.this, R.string.alert_num_shift, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	/**
@@ -58,15 +94,63 @@ public class MainActivity extends Activity {
 	 * @param view TODO
 	 */
 	public void addGratSlot(View view) {
-		EditText newGratSlot = (EditText) getLayoutInflater().
-				inflate(R.layout.edit_text_template, mPrevGratLayout, false);
-		mPrevGratLayout.addView(newGratSlot);
+		if (mPrevGrat.size() < MAX_PREV_SHIFTS) {
+			EditText newGratSlot = (EditText) getLayoutInflater().
+					inflate(R.layout.edit_text_template, mPrevGratLayout, false);
+			newGratSlot.setFilters(new InputFilter[] { new CurrencyInputFilter() });
+			newGratSlot.setId(mPrevGrat.size() + MAX_PREV_SHIFTS);
+			mPrevGrat.add(newGratSlot);
+			mPrevGratLayout.addView(newGratSlot);
+			Toast.makeText(MainActivity.this, Integer.toString(newGratSlot.getId()), Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(MainActivity.this, R.string.alert_num_shift, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	/**
 	 * Calculates the current shift's tip based on the current user input.
+	 * 
+	 * @param view TODO
 	 */
-	public void calculateTip() {
-		
+	public void calculateTip(View view) {
+
+	}
+
+	/**
+	 * Clears all the input fields.
+	 * 
+	 * @param view TODO
+	 */
+	public void clear(View view) {
+		AlertDialog.Builder builder =
+				new AlertDialog.Builder(MainActivity.this);
+		builder.setTitle(R.string.alert_clear_title);
+		builder.setMessage(R.string.alert_clear_message);
+		builder.setNegativeButton(R.string.alert_cancel,
+				new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				// back out from delete
+				dialog.cancel();
+			}
+		});
+
+		builder.setPositiveButton(R.string.alert_ok,
+				new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				// remove all previous shift information
+				mPrevCardTipLayout.removeAllViews();
+				mPrevGratLayout.removeAllViews();
+
+				// reset all information regarding current shift
+				mCashTip.setText("");
+				mCardTipTotal.setText("");
+				mGratTotal.setText("");
+			}
+		});
+		// show the alert message
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 }

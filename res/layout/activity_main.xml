@@ -30,6 +30,57 @@
             android:layout_height="@dimen/default_component_height"
             android:layout_marginBottom="@dimen/default_bottom_margin" />
 
+        <!-- Portion of the layout containing input for card tip information. -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:background="@drawable/group_holder"
+            android:orientation="vertical"
+            android:padding="@dimen/default_ui_gap" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/header_card_tip_total"
+                android:textSize="@dimen/text_size_small" />
+
+            <EditText
+                android:id="@+id/edittext_card_tip_total"
+                style="@style/TipEditText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_component_height"
+                android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/header_card_tip_prev_shifts"
+                android:textSize="@dimen/text_size_small" />
+
+            <!-- Where additional EditTexts for card tip from previous shifts will be inserted into. -->
+
+            <LinearLayout
+                android:id="@+id/layout_prev_card_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_component_height"
+                android:layout_marginTop="@dimen/default_ui_gap"
+                android:onClick="addCardTipSlot"
+                android:text="@string/button_add_edittext"
+                android:textSize="@dimen/text_size_micro" >
+            </Button>
+        </LinearLayout>
+
+        <!-- Portion of the layout containing input for card tip information ends. -->
+
+
         <!-- Portion of the layout containing input for gratuity information. -->
 
         <LinearLayout
@@ -69,7 +120,6 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button_add_prev_grat"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/default_component_height"
                 android:layout_marginTop="@dimen/default_ui_gap"
@@ -79,63 +129,31 @@
             </Button>
         </LinearLayout>
 
-        <!-- Portion of the layout containing input for card tip information. -->
+        <!-- Portion of the layout containing input for gratuity information ends. -->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_bottom_margin"
-            android:background="@drawable/group_holder"
-            android:orientation="vertical"
-            android:padding="@dimen/default_ui_gap" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/header_card_tip_total"
-                android:textSize="@dimen/text_size_small" />
-
-            <EditText
-                android:id="@+id/edittext_card_tip_total"
-                style="@style/TipEditText"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/default_component_height"
-                android:layout_marginBottom="@dimen/default_bottom_margin" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/header_card_tip_prev_shifts"
-                android:textSize="@dimen/text_size_small" />
-
-            <!-- Where additional EditTexts for gratuity from previous shifts will be inserted into. -->
-
-            <LinearLayout
-                android:id="@+id/layout_prev_card_tip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-            </LinearLayout>
+            android:layout_height="@dimen/default_component_height"
+            android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/button_add_prev_card_tip"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/default_component_height"
-                android:layout_marginTop="@dimen/default_ui_gap"
-                android:onClick="addCardTipSlot"
-                android:text="@string/button_add_edittext"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="calculateTip"
+                android:text="@string/button_calculate"
+                android:textSize="@dimen/text_size_micro" >
+            </Button>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="clear"
+                android:text="@string/button_clear"
                 android:textSize="@dimen/text_size_micro" >
             </Button>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/button_calculate"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/default_component_height"
-            android:onClick="calculateTip"
-            android:text="@string/button_calculate"
-            android:textSize="@dimen/text_size_micro" >
-        </Button>
     </LinearLayout>
 
 </ScrollView>
