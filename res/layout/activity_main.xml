@@ -54,7 +54,6 @@
                 android:layout_marginBottom="@dimen/default_bottom_margin" />
 
             <TextView
-                android:id="@+id/text_prev_grats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/header_gratuity_prev_shifts"
@@ -80,23 +79,12 @@
             </Button>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/header_card_tip_total"
-            android:textSize="@dimen/text_size_small" />
-
-        <EditText
-            android:id="@+id/card_tip_total"
-            style="@style/TipEditText"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/default_component_height"
-            android:layout_marginBottom="@dimen/default_bottom_margin" />
+        <!-- Portion of the layout containing input for card tip information. -->
 
         <LinearLayout
-            android:id="@+id/layout_prev_card_tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
             android:background="@drawable/group_holder"
             android:orientation="vertical"
             android:padding="@dimen/default_ui_gap" >
@@ -104,8 +92,30 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/header_card_tip_total"
+                android:textSize="@dimen/text_size_small" />
+
+            <EditText
+                android:id="@+id/edittext_card_tip_total"
+                style="@style/TipEditText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_component_height"
+                android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/header_card_tip_prev_shifts"
                 android:textSize="@dimen/text_size_small" />
+
+            <!-- Where additional EditTexts for gratuity from previous shifts will be inserted into. -->
+
+            <LinearLayout
+                android:id="@+id/layout_prev_card_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
 
             <Button
                 android:id="@+id/button_add_prev_card_tip"
@@ -122,7 +132,6 @@
             android:id="@+id/button_calculate"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_component_height"
-            android:layout_marginTop="@dimen/default_ui_gap"
             android:onClick="calculateTip"
             android:text="@string/button_calculate"
             android:textSize="@dimen/text_size_micro" >
