@@ -22,9 +22,6 @@
     <style name="TipEditText">
         <item name="android:padding">@dimen/default_edittext_padding</item>
         <item name="android:layout_marginTop">@dimen/default_ui_gap</item>
-        <item name="android:inputType">numberDecimal</item>
-        <!-- 6 = 123.56 -->
-        <item name="android:maxLength">6</item>
         <item name="android:background">@drawable/rounded_edittext</item>
     </style>
 

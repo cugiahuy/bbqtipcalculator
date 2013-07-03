@@ -24,7 +24,7 @@
             android:textSize="@dimen/text_size_small" />
 
         <EditText
-            android:id="@+id/cash_tip_amount"
+            android:id="@+id/edittext_cash_tip"
             style="@style/TipEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_component_height"

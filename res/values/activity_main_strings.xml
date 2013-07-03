@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Header strings for the main activity. -->
+    <string name="header_cash_tip">CASH TIP</string>
+    <string name="header_gratuity_total">CURRENT TOTAL GRATUITY</string>
+    <string name="header_gratuity_prev_shifts">GRATUITY FROM PREVIOUS SHIFT(S)</string>
+    <string name="header_card_tip_total">CURRENT TOTAL CARD TIP</string>
+    <string name="header_card_tip_prev_shifts">CARD TIP FROM PREVIOUS SHIFT(S)</string>
+
+    <!-- Button texts -->
+    <string name="button_add_edittext">ADD SHIFT</string>
+    <string name="button_calculate">CALCULATE</string>
+
+</resources>
