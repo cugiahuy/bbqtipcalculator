@@ -1,45 +1,132 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/default_layout_spacing"
-    tools:context=".MainActivity" >
+    android:layout_marginLeft="@dimen/default_layout_spacing"
+    android:layout_marginRight="@dimen/default_layout_spacing"
+    android:fillViewport="true" >
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/header_cash_tip"
-        android:textSize="@dimen/text_size_small" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/default_layout_spacing"
+        android:paddingTop="@dimen/default_layout_spacing"
+        tools:context=".MainActivity" >
 
-    <EditText
-        android:id="@+id/cash_tip_amount"
-        style="@style/TipEditText"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:singleLine="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_cash_tip"
+            android:textSize="@dimen/text_size_small" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_gratuity_total"
-        android:textSize="@dimen/text_size_small" />
+        <EditText
+            android:id="@+id/cash_tip_amount"
+            style="@style/TipEditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_component_height"
+            android:layout_marginBottom="@dimen/default_bottom_margin" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_gratuity_prev_shifts"
-        android:textSize="@dimen/text_size_small" />
+        <!-- Portion of the layout containing input for gratuity information. -->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_card_tip_total"
-        android:textSize="@dimen/text_size_small" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:background="@drawable/group_holder"
+            android:orientation="vertical"
+            android:padding="@dimen/default_ui_gap" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_card_tip_prev_shifts"
-        android:textSize="@dimen/text_size_small" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/header_gratuity_total"
+                android:textSize="@dimen/text_size_small" />
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/edittext_gratuity_total"
+                style="@style/TipEditText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_component_height"
+                android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+            <TextView
+                android:id="@+id/text_prev_grats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/header_gratuity_prev_shifts"
+                android:textSize="@dimen/text_size_small" />
+
+            <!-- Where additional EditTexts for gratuity from previous shifts will be inserted into. -->
+
+            <LinearLayout
+                android:id="@+id/layout_prev_grat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_add_prev_grat"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_component_height"
+                android:layout_marginTop="@dimen/default_ui_gap"
+                android:onClick="addGratSlot"
+                android:text="@string/button_add_edittext"
+                android:textSize="@dimen/text_size_micro" >
+            </Button>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_card_tip_total"
+            android:textSize="@dimen/text_size_small" />
+
+        <EditText
+            android:id="@+id/card_tip_total"
+            style="@style/TipEditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_component_height"
+            android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+        <LinearLayout
+            android:id="@+id/layout_prev_card_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/group_holder"
+            android:orientation="vertical"
+            android:padding="@dimen/default_ui_gap" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/header_card_tip_prev_shifts"
+                android:textSize="@dimen/text_size_small" />
+
+            <Button
+                android:id="@+id/button_add_prev_card_tip"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_component_height"
+                android:layout_marginTop="@dimen/default_ui_gap"
+                android:onClick="addCardTipSlot"
+                android:text="@string/button_add_edittext"
+                android:textSize="@dimen/text_size_micro" >
+            </Button>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_calculate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_component_height"
+            android:layout_marginTop="@dimen/default_ui_gap"
+            android:onClick="calculateTip"
+            android:text="@string/button_calculate"
+            android:textSize="@dimen/text_size_micro" >
+        </Button>
+    </LinearLayout>
+
+</ScrollView>

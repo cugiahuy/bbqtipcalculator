@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">BBQ Tip Calculator</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

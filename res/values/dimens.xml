@@ -8,7 +8,7 @@
     <dimen name="default_ui_gap">8dp</dimen>
 
     <!-- Bottom margin of the last element of a group. -->
-    <dimen name="default_bottom_margin">16dp</dimen>
+    <dimen name="default_bottom_margin">20dp</dimen>
     
     <!-- Padding for EditTexts, per the Android Design guidelines. -->
     <dimen name="default_edittext_padding">8dp</dimen>
