@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout.LayoutParams;
 
 public class MainActivity extends Activity {
 
@@ -60,11 +59,7 @@ public class MainActivity extends Activity {
 	 */
 	public void addGratSlot(View view) {
 		EditText newGratSlot = (EditText) getLayoutInflater().
-				inflate(R.layout.edit_text_template, null);
-//		RelativeLayout.LayoutParams params = new RelativeLayout.
-//				LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//		params.addRule(RelativeLayout.ABOVE, R.id.button_add_prev_grat);
-//		newGratSlot.setLayoutParams(params);
+				inflate(R.layout.edit_text_template, mPrevGratLayout, false);
 		mPrevGratLayout.addView(newGratSlot);
 	}
 	
