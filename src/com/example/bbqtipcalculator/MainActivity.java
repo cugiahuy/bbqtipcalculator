@@ -25,8 +25,7 @@ public class MainActivity extends Activity {
 	// maximum number of shifts that can exist before a shift
 	private static final int MAX_PREV_SHIFTS = 5;
 
-	// references to the view contained in the layout
-	private LinearLayout mPrevGratLayout;
+	// reference to the layout containing info for card tip(s)
 	private LinearLayout mPrevCardTipLayout;
 
 	// references to the current total amounts
@@ -35,8 +34,7 @@ public class MainActivity extends Activity {
 	private EditText mGratTotal;
 
 	// collection of EditTexts for previous shifts containing previous
-	// shifts' card tip and gratuity information
-	private ArrayList<EditText> mPrevGrat = new ArrayList<EditText>();
+	// shifts' card tip
 	private ArrayList<EditText> mPrevCardTip = new ArrayList<EditText>();
 
 	@Override
@@ -44,8 +42,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// save the nested layouts of the dynamic portions of the main layout
-		mPrevGratLayout = (LinearLayout) findViewById(R.id.layout_prev_grat);
+		// save the nested layout of the dynamic portion of the main layout,
+		// namely the card tip section
 		mPrevCardTipLayout = (LinearLayout) findViewById(R.id.layout_prev_card_tip);
 
 		// save references to total amounts for the clear() method
@@ -89,25 +87,6 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * Adds a new slot for a gratuity from a previous shift to the main layout.
-	 * 
-	 * @param view TODO
-	 */
-	public void addGratSlot(View view) {
-		if (mPrevGrat.size() < MAX_PREV_SHIFTS) {
-			EditText newGratSlot = (EditText) getLayoutInflater().
-					inflate(R.layout.edit_text_template, mPrevGratLayout, false);
-			newGratSlot.setFilters(new InputFilter[] { new CurrencyInputFilter() });
-			newGratSlot.setId(mPrevGrat.size() + MAX_PREV_SHIFTS);
-			mPrevGrat.add(newGratSlot);
-			mPrevGratLayout.addView(newGratSlot);
-			Toast.makeText(MainActivity.this, Integer.toString(newGratSlot.getId()), Toast.LENGTH_SHORT).show();
-		} else {
-			Toast.makeText(MainActivity.this, R.string.alert_num_shift, Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	/**
 	 * Calculates the current shift's tip based on the current user input.
 	 * 
 	 * @param view TODO
@@ -141,7 +120,6 @@ public class MainActivity extends Activity {
 			public void onClick(DialogInterface dialog, int id) {
 				// remove all previous shift information
 				mPrevCardTipLayout.removeAllViews();
-				mPrevGratLayout.removeAllViews();
 
 				// reset all information regarding current shift
 				mCashTip.setText("");
