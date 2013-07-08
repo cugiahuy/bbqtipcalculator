@@ -3,21 +3,29 @@
 
     <!-- Header strings for the main activity. -->
     <string name="header_cash_tip">CASH TIP</string>
-    <string name="header_gratuity_total">CURRENT TOTAL GRATUITY</string>
-    <string name="header_gratuity_prev_shifts">GRATUITY FROM PREVIOUS SHIFT(S)</string>
+    <string name="header_gratuity">GRATUITY</string>
     <string name="header_card_tip_total">CURRENT TOTAL CARD TIP</string>
     <string name="header_card_tip_prev_shifts">CARD TIP FROM PREVIOUS SHIFT(S)</string>
+    <string name="header_num_servers">NUMBER OF SERVERS</string>
+    
+    <!-- Radio button strings. -->
+    <string name="radio_1">1</string>
+    <string name="radio_2">2</string>
+    <string name="radio_3">3</string>
 
     <!-- Button texts -->
     <string name="button_add_edittext">ADD SHIFT</string>
     <string name="button_calculate">CALCULATE</string>
     <string name="button_clear">CLEAR</string>
-    
+
     <!-- Alert strings -->
     <string name="alert_num_shift">Maximum number of allowed previous shifts exceeded.</string>
     <string name="alert_clear_title">Clear</string>
     <string name="alert_clear_message">This will clear the entire screen. Continue?</string>
     <string name="alert_cancel">Cancel</string>
     <string name="alert_ok">OK</string>
+    
+    <!-- Error strings -->
+    <string name="error_card_tip_amount">The sum of the previous shifts\' card tips exceed the amount reported in the current total card tip. Please check the amount.</string>
 
 </resources>

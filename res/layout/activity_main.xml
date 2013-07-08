@@ -18,7 +18,7 @@
         tools:context=".MainActivity" >
 
         <!-- Portion of the layout containing input for cash tip information. -->
-        
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,8 +31,27 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_component_height"
             android:layout_marginBottom="@dimen/default_bottom_margin" />
-        
+
         <!-- Portion of the layout containing input for cash tip information ends. -->
+
+
+        <!-- Portion of the layout containing input for gratuity information. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_gratuity"
+            android:textSize="@dimen/text_size_small" />
+
+        <EditText
+            android:id="@+id/edittext_gratuity"
+            style="@style/TipEditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_component_height"
+            android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+        <!-- Portion of the layout containing input for gratuity information ends. -->
+
 
         <!-- Portion of the layout containing input for card tip information. -->
 
@@ -85,22 +104,70 @@
         <!-- Portion of the layout containing input for card tip information ends. -->
 
 
-        <!-- Portion of the layout containing input for gratuity information. -->
+        <!-- Portion of the layout containing input for # of servers. -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/header_gratuity_total"
+            android:text="@string/header_num_servers"
             android:textSize="@dimen/text_size_small" />
 
-        <EditText
-            android:id="@+id/edittext_gratuity_total"
-            style="@style/TipEditText"
+        <RadioGroup
+            android:id="@+id/radioGroup1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/default_component_height"
-            android:layout_marginBottom="@dimen/default_bottom_margin" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:layout_marginTop="@dimen/default_ui_gap"
+            android:orientation="horizontal" >
 
-        <!-- Portion of the layout containing input for gratuity information ends. -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/radio_1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/radio_2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <RadioButton
+                    android:id="@+id/radio3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/radio_3" />
+            </LinearLayout>
+        </RadioGroup>
+
+        <!-- Portion of the layout containing input for # of servers ends. -->
+
+
+        <!-- Portion of the layout action buttons. -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,6 +192,8 @@
                 android:textSize="@dimen/text_size_micro" >
             </Button>
         </LinearLayout>
+
+        <!-- Portion of the layout action buttons ends. -->
     </LinearLayout>
 
 </ScrollView>
