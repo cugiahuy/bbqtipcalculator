@@ -113,7 +113,7 @@
             android:textSize="@dimen/text_size_small" />
 
         <RadioGroup
-            android:id="@+id/radioGroup1"
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_bottom_margin"
@@ -130,7 +130,6 @@
                     android:id="@+id/radio1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
                     android:onClick="onRadioButtonClicked"
                     android:text="@string/radio_1" />
             </LinearLayout>

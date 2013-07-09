@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 /**
@@ -35,6 +36,9 @@ public class MainActivity extends Activity {
 	private EditText mCashTip;
 	private EditText mCardTipTotal;
 	private EditText mGratuity;
+	
+	// references to the radio buttons indicating # servers
+	private RadioGroup mRadioGroup;
 	
 	// reference to the # of servers
 	private int mNumServers;
@@ -64,6 +68,9 @@ public class MainActivity extends Activity {
 				new InputFilter[] { new CurrencyInputFilter() });
 		((EditText) findViewById(R.id.edittext_gratuity)).setFilters(
 				new InputFilter[] { new CurrencyInputFilter() });
+		
+		// reference to the RadioGroup indicating # servers
+		mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 	}
 
 	@Override
@@ -98,17 +105,20 @@ public class MainActivity extends Activity {
 	 * 
 	 * @param view TODO
 	 */
-	public void onRadioButtonClicked(View view) {	    
+	public void onRadioButtonClicked(View view) {
 	    // Check which radio button was clicked
-	    switch(view.getId()) {
+	    switch(((RadioButton) view).getId()) {
 	        case R.id.radio1:
 	            mNumServers = 1;
+	            mRadioGroup.check(R.id.radio1);
 	            break;
 	        case R.id.radio2:
 	            mNumServers = 2;
+	            mRadioGroup.check(R.id.radio2);
 	            break;
 	        case R.id.radio3:
 	        	mNumServers = 3;
+	            mRadioGroup.check(R.id.radio3);
 	        	break;
 	    }
 	}
@@ -119,12 +129,22 @@ public class MainActivity extends Activity {
 	 * @param view TODO
 	 */
 	public void calculateTip(View view) {
+		// initialize all the temporary variables
 		int currentCardTip;
 		int prevCardTips;
 		int currentCardTipAfterFee;
 		int totalTip;
 		int kitchenTip;
-		int serverTip;
+		int totalServerTip;
+		int individualServerTip;
+		int lastServerTip;
+		
+		// check to see that the user selected # of servers
+		if (mRadioGroup.getCheckedRadioButtonId() < 0) {
+			Toast.makeText(MainActivity.this, R.string.alert_num_servers, 
+			Toast.LENGTH_LONG).show();
+			return;
+		}
 		
 		// add the cash tip to the total
 		if (mCashTip.getText().toString().equals("")) {
@@ -146,24 +166,9 @@ public class MainActivity extends Activity {
 			currentCardTip = parseTip(mCardTipTotal);
 		}
 		
-		// loop through the previous shifts' card tips and subtract them from
-		// the total card tip reported to get the current shift's card tip
-//		for (int i = 0; i < mPrevCardTip.size(); i++) {
-//			EditText prevCardTip = (EditText) findViewById(i);
-//			if (!prevCardTip.getText().toString().equals("")) {
-//				int prevCardTipInt = parseTip(prevCardTip);
-//				currentCardTip -= prevCardTipInt;
-//				
-//				// the sum of previous shifts' card tips shouldn't exceed the current
-//				// reported total card tip
-//				if (currentCardTip < 0) {
-//					Toast.makeText(MainActivity.this, R.string.error_card_tip_amount, 
-//							Toast.LENGTH_LONG).show();
-//					return;
-//				}
-//			}
-//		}
-		
+		// call helper method to loop through the previous shifts' card tips 
+		// and subtract them from the total card tip reported to get the 
+		// current shift's card tip
 		prevCardTips = sumPrevCardTips();
 		if (prevCardTips > currentCardTip) {
 			Toast.makeText(MainActivity.this, R.string.error_card_tip_amount, 
@@ -180,29 +185,38 @@ public class MainActivity extends Activity {
 		// add the summed card tip to the total
 		totalTip += currentCardTipAfterFee;
 		
-		// TODO to make sure the calculated total tip is accurate
-		Toast.makeText(MainActivity.this, "Card tip after fee is: " + currentCardTipAfterFee, 
-				Toast.LENGTH_LONG).show();
-		
-		// TODO TOTAL TOAST
-		Toast.makeText(MainActivity.this, "Total is: " + totalTip, 
-				Toast.LENGTH_LONG).show();
-		
 		// calculate the kitchen tip
 		kitchenTip = (int) (Math.round(totalTip * KITCHEN_TIP_PERCENTAGE));
 		
-		// TODO KITCHEN TIP TOAST
-		Toast.makeText(MainActivity.this, "Kitchen tip is: " + kitchenTip, 
-				Toast.LENGTH_LONG).show();
-		
 		// get server tip
-		serverTip = totalTip - kitchenTip;
+		totalServerTip = totalTip - kitchenTip;
 		
-		// TODO SERVER TIP TOAST
-		Toast.makeText(MainActivity.this, "Server tip is: " + serverTip, 
-				Toast.LENGTH_LONG).show();
-		
-		
+		// collect information for the server tip(s)
+		int[] tipArr = new int[mNumServers];
+		individualServerTip = lastServerTip = totalServerTip / mNumServers;
+
+		// if the tip is being split among multiple servers, the last server's
+		// tip may vary by up to 2 cents
+		if (mNumServers > 1) {
+			lastServerTip = individualServerTip + (totalServerTip % mNumServers);
+			
+			// if the last server's tip varies than the rest's by more than
+			// 1 cent, adjust it
+			if (lastServerTip - individualServerTip > 1) {
+				lastServerTip -= 2;
+				individualServerTip++;
+			}
+		}
+
+		// add in the servers' tips
+		for (int i = 0; i < mNumServers; i++) {
+			if (i != mNumServers - 1) {
+				tipArr[i] = individualServerTip;
+			} else {
+				// adds to the array the last server's tip at the end
+				tipArr[i] = lastServerTip;
+			}
+		}
 	}
 	
 	/*
@@ -265,6 +279,9 @@ public class MainActivity extends Activity {
 				mCashTip.setText("");
 				mGratuity.setText("");
 				mCardTipTotal.setText("");
+				
+				// reset the radio button selection
+				mRadioGroup.clearCheck();
 			}
 		});
 		// show the alert message

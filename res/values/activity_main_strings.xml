@@ -24,6 +24,7 @@
     <string name="alert_clear_message">This will clear the entire screen. Continue?</string>
     <string name="alert_cancel">Cancel</string>
     <string name="alert_ok">OK</string>
+    <string name="alert_num_servers">Please selected the number of servers.</string>
     
     <!-- Error strings -->
     <string name="error_card_tip_amount">The sum of the previous shifts\' card tips exceed the amount reported in the current total card tip. Please check the amount.</string>
