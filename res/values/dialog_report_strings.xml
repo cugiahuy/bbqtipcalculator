@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="header_server_tips">SERVER TIP(S)</string>
+    <string name="header_kitchen_tip">KITCHEN TIP</string>
+    <string name="header_cash_to_withdraw">CASH TO WITHDRAW</string>
+
+</resources>

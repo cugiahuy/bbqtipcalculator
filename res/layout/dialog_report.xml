@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- Portion of the dialog where the individual server tip is reported. -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:text="@string/header_server_tips"
+        android:textSize="@dimen/text_size_small" />
+
+    <LinearLayout
+        android:id="@+id/layout_server_tip_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <!-- Portion of the dialog where the individual server tip is reported ends. -->
+
+
+    <!-- Portion of the dialog where the cash amount to withdraw from the cash register is reported. -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header_kitchen_tip"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/textview_kitchen_tip_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header_cash_to_withdraw"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/textview_cash_to_withdraw_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin" />
+
+    <!-- Portion of the dialog where the cash amount to withdraw from the cash register is reported ends. -->
+
+</LinearLayout>
