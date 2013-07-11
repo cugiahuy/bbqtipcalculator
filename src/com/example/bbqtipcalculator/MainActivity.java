@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -229,17 +230,40 @@ public class MainActivity extends Activity {
 		}
 
 		// report the results in a dialog box
-		reportResults(tipArr, kitchenTip, cashToWithdraw);
+		reportResults(currentCardTipAfterFee, kitchenTip, tipArr, cashToWithdraw);
 	}
 
 	/*
 	 * Reports the result of the tip calculations.
 	 */
-	private void reportResults(int[] tipArr, int kitchenTip, int cashToWithdraw) {
+	private void reportResults(int cardTipAfterFee, int kitchenTip, int[] tipArr,
+			int cashToWithdraw) {
 		Dialog dialog = new Dialog(this);
+		dialog.setTitle(R.string.title_tip_report);
 		dialog.setContentView(R.layout.dialog_report);
 		dialog.setCanceledOnTouchOutside(true);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+		((TextView) dialog.findViewById(R.id.textview_card_tip_after_fee_report)).
+				setText("\t$" + (double) cardTipAfterFee / US_DOLLAR_IN_CENTS);
+		((TextView) dialog.findViewById(R.id.textview_kitchen_tip_report)).
+				setText("\t$" + (double) kitchenTip / US_DOLLAR_IN_CENTS + "");
+		
+		// get the layout to insert the individual server tip reports into
+		LinearLayout serverTipReportLayout = (LinearLayout) dialog.
+				findViewById(R.id.layout_server_tip_report);
+		
+		// loop through to insert the individual server tips
+		for (int i = 0; i < mNumServers; i++) {
+			TextView newServerTip = (TextView) dialog.getLayoutInflater().
+					inflate(R.layout.individual_server_tip_template, 
+					serverTipReportLayout, false);
+			newServerTip.setText("\tServer " + (i + 1) + ": $" + 
+					(double) tipArr[i] / US_DOLLAR_IN_CENTS);
+			serverTipReportLayout.addView(newServerTip);
+		}
+		
+		((TextView) dialog.findViewById(R.id.textview_cash_to_withdraw_report)).
+				setText("\t$" + (double) cashToWithdraw / US_DOLLAR_IN_CENTS + "");
 		dialog.show();
 	}
 
