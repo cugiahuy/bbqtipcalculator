@@ -74,6 +74,22 @@
 
     <!-- Portion of the dialog where the kitchen tip is reported ends. -->
 
+    <!-- Portion of the dialog where the total server tip is reported. -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header_total_server_tip"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/textview_total_server_tip_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:textIsSelectable="true" />
+
+    <!-- Portion of the dialog where the total server tip is reported ends. -->
 
     <!-- Portion of the dialog where the individual server tip is reported. -->
 

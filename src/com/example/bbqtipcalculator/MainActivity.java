@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 	public static final double KITCHEN_TIP_PERCENTAGE = 0.15;
 
 	// maximum number of shifts that can exist before a shift
-	private static final int MAX_PREV_SHIFTS = 3;
+	private static final int MAX_PREV_SHIFTS = 5;
 
 	// reference to the layout containing info for card tip(s)
 	private LinearLayout mPrevCardTipLayout;
@@ -231,14 +231,15 @@ public class MainActivity extends Activity {
 
 		// report the results in a dialog box
 		reportResults(currentCardTip, currentCardTipAfterFee, totalTip, 
-				kitchenTip, tipArr, cashToWithdraw);
+				kitchenTip, tipArr, totalServerTip, cashToWithdraw);
 	}
 
 	/*
 	 * Reports the result of the tip calculations.
 	 */
 	private void reportResults(int cardTipBeforeFee, int cardTipAfterFee, 
-			int totalTip, int kitchenTip, int[] tipArr, int cashToWithdraw) {
+			int totalTip, int kitchenTip, int[] tipArr, int totalServerTip,
+			int cashToWithdraw) {
 		Dialog dialog = new Dialog(this);
 		dialog.setTitle(R.string.title_tip_report);
 		dialog.setContentView(R.layout.dialog_report);
@@ -252,6 +253,8 @@ public class MainActivity extends Activity {
 				setText("\t$" + (double) totalTip / US_DOLLAR_IN_CENTS + "");
 		((TextView) dialog.findViewById(R.id.textview_kitchen_tip_report)).
 				setText("\t$" + (double) kitchenTip / US_DOLLAR_IN_CENTS + "");
+		((TextView) dialog.findViewById(R.id.textview_total_server_tip_report)).
+				setText("\t$" + (double) totalServerTip / US_DOLLAR_IN_CENTS + "");
 		
 		// get the layout to insert the individual server tip reports into
 		LinearLayout serverTipReportLayout = (LinearLayout) dialog.
