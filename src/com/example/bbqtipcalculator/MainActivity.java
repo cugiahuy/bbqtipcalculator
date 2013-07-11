@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 	public static final double KITCHEN_TIP_PERCENTAGE = 0.15;
 
 	// maximum number of shifts that can exist before a shift
-	private static final int MAX_PREV_SHIFTS = 5;
+	private static final int MAX_PREV_SHIFTS = 3;
 
 	// reference to the layout containing info for card tip(s)
 	private LinearLayout mPrevCardTipLayout;
@@ -230,19 +230,21 @@ public class MainActivity extends Activity {
 		}
 
 		// report the results in a dialog box
-		reportResults(currentCardTipAfterFee, kitchenTip, tipArr, cashToWithdraw);
+		reportResults(currentCardTip, currentCardTipAfterFee, kitchenTip, tipArr, cashToWithdraw);
 	}
 
 	/*
 	 * Reports the result of the tip calculations.
 	 */
-	private void reportResults(int cardTipAfterFee, int kitchenTip, int[] tipArr,
-			int cashToWithdraw) {
+	private void reportResults(int cardTipBeforeFee, int cardTipAfterFee, 
+			int kitchenTip, int[] tipArr, int cashToWithdraw) {
 		Dialog dialog = new Dialog(this);
 		dialog.setTitle(R.string.title_tip_report);
 		dialog.setContentView(R.layout.dialog_report);
 		dialog.setCanceledOnTouchOutside(true);
 		
+		((TextView) dialog.findViewById(R.id.textview_card_tip_before_fee_report)).
+				setText("\t$" + (double) cardTipBeforeFee / US_DOLLAR_IN_CENTS);
 		((TextView) dialog.findViewById(R.id.textview_card_tip_after_fee_report)).
 				setText("\t$" + (double) cardTipAfterFee / US_DOLLAR_IN_CENTS);
 		((TextView) dialog.findViewById(R.id.textview_kitchen_tip_report)).
