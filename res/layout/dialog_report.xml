@@ -40,6 +40,22 @@
 
     <!-- Portion of the dialog where the card tip after fee is reported ends. -->
 
+    <!-- Portion of the dialog where the total tip is reported. -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header_total_tip"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/textview_total_tip_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_bottom_margin"
+        android:textIsSelectable="true" />
+
+    <!-- Portion of the dialog where the total tip is reported ends. -->
 
     <!-- Portion of the dialog where the kitchen tip is reported. -->
 

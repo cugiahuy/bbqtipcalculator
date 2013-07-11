@@ -230,14 +230,15 @@ public class MainActivity extends Activity {
 		}
 
 		// report the results in a dialog box
-		reportResults(currentCardTip, currentCardTipAfterFee, kitchenTip, tipArr, cashToWithdraw);
+		reportResults(currentCardTip, currentCardTipAfterFee, totalTip, 
+				kitchenTip, tipArr, cashToWithdraw);
 	}
 
 	/*
 	 * Reports the result of the tip calculations.
 	 */
 	private void reportResults(int cardTipBeforeFee, int cardTipAfterFee, 
-			int kitchenTip, int[] tipArr, int cashToWithdraw) {
+			int totalTip, int kitchenTip, int[] tipArr, int cashToWithdraw) {
 		Dialog dialog = new Dialog(this);
 		dialog.setTitle(R.string.title_tip_report);
 		dialog.setContentView(R.layout.dialog_report);
@@ -247,6 +248,8 @@ public class MainActivity extends Activity {
 				setText("\t$" + (double) cardTipBeforeFee / US_DOLLAR_IN_CENTS);
 		((TextView) dialog.findViewById(R.id.textview_card_tip_after_fee_report)).
 				setText("\t$" + (double) cardTipAfterFee / US_DOLLAR_IN_CENTS);
+		((TextView) dialog.findViewById(R.id.textview_total_tip_report)).
+				setText("\t$" + (double) totalTip / US_DOLLAR_IN_CENTS + "");
 		((TextView) dialog.findViewById(R.id.textview_kitchen_tip_report)).
 				setText("\t$" + (double) kitchenTip / US_DOLLAR_IN_CENTS + "");
 		

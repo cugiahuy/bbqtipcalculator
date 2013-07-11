@@ -4,6 +4,7 @@
     <string name="title_tip_report">TIP REPORT</string>
     <string name="header_card_tip_before_fee">CARD TIP BEFORE FEE</string>
     <string name="header_card_tip_after_fee">CARD TIP AFTER FEE</string>
+    <string name="header_total_tip">TOTAL TIP</string>
     <string name="header_kitchen_tip">KITCHEN TIP</string>
     <string name="header_server_tips">SERVER TIP(S)</string>
     <string name="header_cash_to_withdraw">CASH TO WITHDRAW</string>
