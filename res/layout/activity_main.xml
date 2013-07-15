@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_layout_spacing"
         android:layout_marginRight="@dimen/default_layout_spacing"
+        android:background="@color/white"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="@dimen/default_layout_spacing"
@@ -88,6 +89,7 @@
                 android:id="@+id/layout_prev_card_tip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical" >
             </LinearLayout>
 
@@ -124,6 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:gravity="center" >
 
                 <RadioButton
@@ -138,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:gravity="center" >
 
                 <RadioButton
@@ -152,6 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:gravity="center" >
 
                 <RadioButton
@@ -171,6 +176,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_component_height"
+            android:background="@color/white"
             android:orientation="horizontal" >
 
             <Button

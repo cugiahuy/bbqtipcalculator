@@ -2,5 +2,6 @@
 <resources>
 
     <color name="colored_edittext_gray">#EDEDED</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>
