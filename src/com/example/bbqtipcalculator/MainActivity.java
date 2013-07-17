@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
