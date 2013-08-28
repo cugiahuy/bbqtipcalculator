@@ -1,129 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/default_layout_spacing"
-    android:orientation="vertical" >
-
-    <!-- Portion of the dialog where the card tip before fee is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_card_tip_before_fee"
-        android:textSize="@dimen/text_size_small" />
-
-    <TextView
-        android:id="@+id/textview_card_tip_before_fee_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:textIsSelectable="true" />
-
-    <!-- Portion of the dialog where the card tip before fee is reported ends. -->
-
-
-    <!-- Portion of the dialog where the card tip after fee is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_card_tip_after_fee"
-        android:textSize="@dimen/text_size_small" />
-
-    <TextView
-        android:id="@+id/textview_card_tip_after_fee_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:textIsSelectable="true" />
-
-    <!-- Portion of the dialog where the card tip after fee is reported ends. -->
-
-    <!-- Portion of the dialog where the total tip is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_total_tip"
-        android:textSize="@dimen/text_size_small" />
-
-    <TextView
-        android:id="@+id/textview_total_tip_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:textIsSelectable="true" />
-
-    <!-- Portion of the dialog where the total tip is reported ends. -->
-
-    <!-- Portion of the dialog where the kitchen tip is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_kitchen_tip"
-        android:textSize="@dimen/text_size_small" />
-
-    <TextView
-        android:id="@+id/textview_kitchen_tip_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:textIsSelectable="true" />
-
-    <!-- Portion of the dialog where the kitchen tip is reported ends. -->
-
-    <!-- Portion of the dialog where the total server tip is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_total_server_tip"
-        android:textSize="@dimen/text_size_small" />
-
-    <TextView
-        android:id="@+id/textview_total_server_tip_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:textIsSelectable="true" />
-
-    <!-- Portion of the dialog where the total server tip is reported ends. -->
-
-    <!-- Portion of the dialog where the individual server tip is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_server_tips"
-        android:textSize="@dimen/text_size_small" />
+    android:fillViewport="true" >
 
     <LinearLayout
-        android:id="@+id/layout_server_tip_report"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_bottom_margin"
-        android:orientation="vertical" >
+        android:layout_marginLeft="@dimen/default_layout_spacing"
+        android:layout_marginRight="@dimen/default_layout_spacing"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/default_layout_spacing"
+        android:paddingTop="@dimen/default_layout_spacing" >
+
+        <!-- Portion of the dialog where the  card tip before fee is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_card_tip_before_fee"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textview_card_tip_before_fee_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:textIsSelectable="true" />
+
+        <!-- Portion of the dialog where the card tip before fee is reported ends. -->
+
+
+        <!-- Portion of the dialog where the card tip after fee is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_card_tip_after_fee"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textview_card_tip_after_fee_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:textIsSelectable="true" />
+
+        <!-- Portion of the dialog where the card tip after fee is reported ends. -->
+
+
+        <!-- Portion of the dialog where the total tip is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_total_tip"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textview_total_tip_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:textIsSelectable="true" />
+
+        <!-- Portion of the dialog where the total tip is reported ends. -->
+
+
+        <!-- Portion of the dialog where the kitchen tip is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_kitchen_tip"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textview_kitchen_tip_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:textIsSelectable="true" />
+
+        <!-- Portion of the dialog where the kitchen tip is reported ends. -->
+
+
+        <!-- Portion of the dialog where the total server tip is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_total_server_tip"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textview_total_server_tip_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:textIsSelectable="true" />
+
+        <!-- Portion of the dialog where the total server tip is reported ends. -->
+
+
+        <!-- Portion of the dialog where the individual server tip is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_server_tips"
+            android:textSize="@dimen/text_size_small" />
+
+        <LinearLayout
+            android:id="@+id/layout_server_tip_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_bottom_margin"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <!-- Portion of the dialog where the individual server tip is reported ends. -->
+
+
+        <!-- Portion of the dialog where the cash amount to withdraw from the cash register is reported. -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/header_cash_to_withdraw"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/textview_cash_to_withdraw_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true" />
+
+        <!-- Portion of the dialog where the cash amount to withdraw from the cash register is reported ends. -->
+
     </LinearLayout>
 
-    <!-- Portion of the dialog where the individual server tip is reported ends. -->
-
-
-    <!-- Portion of the dialog where the cash amount to withdraw from the cash register is reported. -->
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/header_cash_to_withdraw"
-        android:textSize="@dimen/text_size_small" />
-
-    <TextView
-        android:id="@+id/textview_cash_to_withdraw_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textIsSelectable="true" />
-
-    <!-- Portion of the dialog where the cash amount to withdraw from the cash register is reported ends. -->
-
-</LinearLayout>
+</ScrollView>

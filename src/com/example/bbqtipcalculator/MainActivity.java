@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import android.widget.Toast;
  * @author Ji jiwpark90
  */
 public class MainActivity extends Activity {
+	public static final String TAG = "MainActivity";
 
 	public static final int US_DOLLAR_IN_CENTS = 100;
 	public static final double CARD_FEE_MULTIPLIER = 0.95;
@@ -137,57 +139,37 @@ public class MainActivity extends Activity {
 		int totalTip;
 		int kitchenTip;
 		int totalServerTip;
-		int individualServerTip;
-		int lastServerTip;
 		int cashToWithdraw;
 
 		// check to see that the user selected # of servers
-		if (mRadioGroup.getCheckedRadioButtonId() < 0) {
-			Toast.makeText(MainActivity.this, R.string.alert_num_servers, 
-					Toast.LENGTH_LONG).show();
-			mRadioGroup.requestFocus();
+		if (!checkNumServers()) {
 			return;
 		}
 
-		// add the cash tip to the total
-		if (mCashTip.getText().toString().equals("")) {
-			totalTip = 0;
-		} else {
-			totalTip = parseTip(mCashTip);
-		}
-
-		// as of now, totalTip only contains cashTip. must save for later when
+		// add the cash tip to the total. as of now, totalTip 
+		// only contains cashTip. must save for later when
 		// figuring out the cash to withdraw from the cash register
-		cashTip = totalTip;
+		cashTip = totalTip = parseTip(mCashTip);
 
 		// add gratuity to the total
-		if (!mGratuity.getText().toString().equals("")) {
-			totalTip += parseTip(mGratuity);
-		}
+		totalTip += parseTip(mGratuity);
 
-		// store actual amount * 100 cents and store it as an int to avoid 
-		// dealing with doubles
-		if (mCardTipTotal.getText().toString().equals("")) {
-			currentCardTip = 0;	
-		} else {
-			currentCardTip = parseTip(mCardTipTotal);
-		}
+		// store current card tip total
+		currentCardTip = parseTip(mCardTipTotal);
 
 		// call helper method to loop through the previous shifts' card tips 
 		// and subtract them from the total card tip reported to get the 
 		// current shift's card tip
-		prevCardTips = sumPrevCardTips();
-		if (prevCardTips > currentCardTip) {
-			Toast.makeText(MainActivity.this, R.string.error_card_tip_amount, 
-					Toast.LENGTH_LONG).show();
+		prevCardTips = sumPrevCardTips(currentCardTip);
+		if (prevCardTips < 0) {
 			return;
 		} else {
 			currentCardTip -= prevCardTips;
 		}
 
 		// get the current card tip minus the 5% (in case of BBQ)
-		currentCardTipAfterFee = (int) (Math.round(currentCardTip * 
-				CARD_FEE_MULTIPLIER));
+		currentCardTipAfterFee = (int) (currentCardTip * 
+				CARD_FEE_MULTIPLIER);
 
 		// add the summed card tip to the total
 		totalTip += currentCardTipAfterFee;
@@ -196,13 +178,66 @@ public class MainActivity extends Activity {
 		cashToWithdraw = totalTip - cashTip;
 
 		// calculate the kitchen tip
-		kitchenTip = (int) (Math.round(totalTip * KITCHEN_TIP_PERCENTAGE));
+		kitchenTip = (int) (totalTip * KITCHEN_TIP_PERCENTAGE);
 
-		// get server tip
+		// get server tips
 		totalServerTip = totalTip - kitchenTip;
-
-		// collect information for the server tip(s)
 		int[] tipArr = new int[mNumServers];
+		getServerTips(tipArr, totalServerTip);
+
+		// report the results in a dialog box
+		reportResults(currentCardTip, currentCardTipAfterFee, totalTip, 
+				kitchenTip, tipArr, totalServerTip, cashToWithdraw);
+	}
+	
+	/*
+	 * Check to see that the user selected # of servers for the current shift.
+	 */
+	private Boolean checkNumServers() {
+		if (mRadioGroup.getCheckedRadioButtonId() < 0) {
+			Toast.makeText(MainActivity.this, R.string.alert_num_servers, 
+					Toast.LENGTH_LONG).show();
+			mRadioGroup.requestFocus();
+			return false;
+		}
+
+		return true;
+	}
+
+	/*
+	 * If there were any card tips from the previous shifts, returns the sum
+	 * of all the previous shifts' card tips.
+	 * 
+	 * @return sum of all the previous shifts' card tips. -1 if the summed amount
+	 * 		   is invalid (i.e. the summed previous card tips exceed the current
+	 * 		   card tip amount)
+	 */
+	private int sumPrevCardTips(int currentCardTip) {
+		int prevCardTips = 0;
+		for (int i = 0; i < mPrevCardTip.size(); i++) {
+			EditText prevCardTip = (EditText) findViewById(i);
+			if (!prevCardTip.getText().toString().equals("")) {
+				prevCardTips += parseTip(prevCardTip);
+			}
+		}
+		
+		// check for a valid sum
+		if (prevCardTips > currentCardTip) {
+			Toast.makeText(MainActivity.this, R.string.error_card_tip_amount, 
+					Toast.LENGTH_LONG).show();
+			return -1;
+		} else {
+			return prevCardTips;
+		}
+	}
+	
+	/*
+	 * Returns an array with each element representing the tip amount 
+	 * for each individual server.
+	 */
+	private void getServerTips(int[] tipArr, int totalServerTip) {
+		// collect information for the server tip(s)
+		int individualServerTip, lastServerTip;
 		individualServerTip = lastServerTip = totalServerTip / mNumServers;
 
 		// if the tip is being split among multiple servers, the last server's
@@ -227,12 +262,24 @@ public class MainActivity extends Activity {
 				tipArr[i] = lastServerTip;
 			}
 		}
-
-		// report the results in a dialog box
-		reportResults(currentCardTip, currentCardTipAfterFee, totalTip, 
-				kitchenTip, tipArr, totalServerTip, cashToWithdraw);
 	}
 
+	/*
+	 * Given a reference to an EditText of one of the tip fields, returns
+	 * an int representation of tip.
+	 * 
+	 * @EditText tip Reference to the EditTex that contains the user input
+	 * 			 of a tip (varies in types [kitchen, server, etc.].
+	 */
+	private int parseTip(EditText tip) {
+		if (tip.getText().toString().equals("")) {
+			return 0;
+		} else {
+			return (int) (Double.parseDouble(tip.getText().
+					toString()) * US_DOLLAR_IN_CENTS);
+		}
+	}
+	
 	/*
 	 * Reports the result of the tip calculations.
 	 */
@@ -254,6 +301,8 @@ public class MainActivity extends Activity {
 				setText("\t$" + (double) kitchenTip / US_DOLLAR_IN_CENTS + "");
 		((TextView) dialog.findViewById(R.id.textview_total_server_tip_report)).
 				setText("\t$" + (double) totalServerTip / US_DOLLAR_IN_CENTS + "");
+		((TextView) dialog.findViewById(R.id.textview_cash_to_withdraw_report)).
+				setText("\t$" + (double) cashToWithdraw / US_DOLLAR_IN_CENTS + "");
 		
 		// get the layout to insert the individual server tip reports into
 		LinearLayout serverTipReportLayout = (LinearLayout) dialog.
@@ -268,40 +317,8 @@ public class MainActivity extends Activity {
 					(double) tipArr[i] / US_DOLLAR_IN_CENTS);
 			serverTipReportLayout.addView(newServerTip);
 		}
-		
-		((TextView) dialog.findViewById(R.id.textview_cash_to_withdraw_report)).
-				setText("\t$" + (double) cashToWithdraw / US_DOLLAR_IN_CENTS + "");
+
 		dialog.show();
-	}
-
-	/*
-	 * Given a reference to an EditText of one of the tip fields, returns
-	 * an int representation of tip.
-	 * 
-	 * @EditText tip Reference to the EditTex that contains the user input
-	 * 			 of a tip (varies in types [kitchen, server, etc.].
-	 */
-	private int parseTip(EditText tip) {
-		return (int) (Double.parseDouble(tip.getText().
-				toString()) * US_DOLLAR_IN_CENTS);
-	}
-
-	/*
-	 * If there were any card tips from the previous shifts, returns the sum
-	 * of all the previous shifts' card tips.
-	 * 
-	 * @return sum of all the previous shifts' card tips
-	 */
-	private int sumPrevCardTips() {
-		int prevCardTips = 0;
-		for (int i = 0; i < mPrevCardTip.size(); i++) {
-			EditText prevCardTip = (EditText) findViewById(i);
-			if (!prevCardTip.getText().toString().equals("")) {
-				prevCardTips += parseTip(prevCardTip);
-			}
-		}
-
-		return prevCardTips;
 	}
 
 	/**
